@@ -30,11 +30,11 @@ claude -p "$prompt" --model "$NIGHT_MODEL" --strict-mcp-config \
 # Checks: scripts valid, staged JSON readable, startup hook runs, a Claude session still answers.
 error=""
 for f in scripts/*.sh; do bash -n "$f" 2>/dev/null || error="$error invalid script ($f);"; done
-for f in $(find "staged/$day" -name '*.json' 2>/dev/null); do
+while read -r f; do
   jq empty "$f" 2>/dev/null || error="$error unreadable staged settings ($f);"
-done
+done < <(find "staged/$day" -name '*.json' 2>/dev/null)
 bash scripts/startup.sh > /dev/null 2>&1 || error="$error startup hook fails;"
-answer="$(timeout 180 claude -p "Answer only: OK" --model haiku 2>&1)"
+answer="$(with_timeout 180 claude -p "Answer only: OK" --model haiku 2>&1)"
 grep -q "OK" <<< "$answer" || error="$error a Claude session no longer starts;"
 
 if [ -n "$error" ]; then

@@ -27,7 +27,7 @@ condense() {
 }
 
 # Last working day within 7 days (or the date given as argument).
-if [ -n "$1" ]; then days="$1"; else days="$(for n in 1 2 3 4 5 6 7; do date -d "-$n day" +%F; done)"; fi
+if [ -n "$1" ]; then days="$1"; else days="$(for n in 1 2 3 4 5 6 7; do day_ago "$n"; done)"; fi
 for day in $days; do
   : > "$material"
   for f in memory/journal/"$day"*.md; do

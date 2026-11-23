@@ -1,12 +1,54 @@
 # claude-memory-kit
 
-**A persistent, self-improving memory for Claude Code — plain Markdown files, git, and a few hooks.**
+**A Claude Code assistant that learns from you every night — with guardrails.**
 
-Claude Code forgets everything between sessions. This kit turns a folder into Claude's long-term memory: it loads your preferences and notes at every start, writes down each correction you make, commits everything to git after every reply, blocks secrets before they are saved, and — if you want — audits yesterday's conversations every night to learn from them.
+![license](https://img.shields.io/badge/license-MIT-blue) ![platform](https://img.shields.io/badge/Linux%20%7C%20macOS-bash-lightgrey)
 
-No server, no database, no account: bash, git, jq and Claude Code.
+Most memory tools for Claude Code *store and recall*. This kit closes the loop: you correct Claude once, it writes the rule down; every night it re-reads the day's conversations like a coach reviewing a match, fixes its own notes, builds the small tools it was missing, and every morning suggests what would have helped you yesterday. Everything is plain Markdown in git, and every unattended step is fenced by guards.
+
+Built for **people who use Claude Code as a daily work assistant** (marketing, operations, consulting, research, freelancing), not only for coding. No server, no database, no account: bash, git, jq and Claude Code.
 
 [Version française](README.fr.md)
+
+```
+   you correct Claude ──► rule written to memory/preferences.md ──► committed to git
+          ▲                                                              │
+          │                                                              ▼
+   morning radar: 5 tools        nightly audit re-reads yesterday ◄── next session
+   that would have helped   ◄──  writes missing rules & facts          loads it at start
+   (one-command install)         self-tooling builds what was missing
+                                 (checked, rolled back on failure)
+```
+
+### What a session start looks like
+
+```
+Today: 2026-11-23
+# Memory index
+## Where to find what
+| I am looking for… | Note |
+| How to answer: tone, length, habits | preferences.md |
+| Projects and deadlines              | projects.md    |
+…
+User preferences (apply from the first reply):
+- Answers: short and precise; the result first, the explanation after.
+- Never ask "do you want me to…" for a safe, reversible action: do it. (2026-11-20, audit)
+Last audit (memory/audit/2026-11-22.md):
+Summary: 2 rules · 1 fact · 1 tooling need — stop re-asking for info already in notes
+Today's radar (memory/radar/2026-11-23.md):
+Summary: 1. PDF table extraction skill · 2. Calendar MCP server · …
+```
+*(Real output of `scripts/startup.sh`; the preference, audit and radar lines are illustrative.)*
+
+### How it compares
+
+| | Typical memory plugin | claude-memory-kit |
+|---|---|---|
+| Storage | Database or vector store | Plain Markdown in git: readable, editable, revertable |
+| Learning | Recalls what was said | Turns corrections into rules; nightly audit catches what slipped |
+| Tooling | — | Builds missing hooks/scripts at night, checks them, rolls back on failure |
+| Discovery | — | Morning radar: tools matched to what you actually did |
+| Safety | — | Secret filter on every commit, prompt-injection guard, cost guard, `.claude/` changes staged for your OK |
 
 ## What you get
 
@@ -38,7 +80,7 @@ cd ~/assistant && claude
 
 Claude Code asks you to trust the folder's hooks the first time: read `.claude/settings.json` (it only calls the scripts in `scripts/`), then accept. Then fill in `memory/profile.md` and the top of `memory/preferences.md`, or simply tell Claude about yourself and let it write them.
 
-Requirements: Claude Code, bash, git, jq. Linux or macOS (the night jobs use GNU `date -d`; on macOS install `coreutils` or run them on a Linux box).
+Requirements: Claude Code, bash, git, jq (`brew install jq` on macOS). Tested on Linux; the scripts avoid GNU-only options so they also run on macOS (bash 3.2) — macOS reports welcome. The night jobs need a machine that is on at night (cron on Linux; on a Mac, cron works but the machine must be awake).
 
 ### Night jobs (optional)
 

@@ -1,12 +1,12 @@
 # claude-memory-kit
 
-**Une mémoire persistante, qui s'améliore toute seule, pour Claude Code : des fichiers Markdown, git et quelques hooks.**
+**Un assistant Claude Code qui apprend de toi chaque nuit, avec des garde-fous.**
 
-Claude Code oublie tout d'une session à l'autre. Ce kit transforme un dossier en mémoire longue de Claude : il charge tes préférences et tes fiches à chaque démarrage, note chaque correction que tu fais, enregistre tout dans git après chaque réponse, bloque les secrets avant qu'ils soient enregistrés et, si tu veux, relit chaque nuit les conversations de la veille pour en tirer des leçons.
+La plupart des outils de mémoire pour Claude Code *stockent et rappellent*. Ce kit boucle la boucle : tu corriges Claude une fois, il écrit la règle ; chaque nuit il relit les conversations de la veille comme un entraîneur revoit un match, corrige ses fiches, fabrique les petits outils qui lui manquaient, et chaque matin te propose ce qui t'aurait aidé la veille. Tout est en Markdown dans git, et chaque étape sans surveillance est encadrée.
 
-Pas de serveur, pas de base de données, pas de compte : bash, git, jq et Claude Code.
+Pensé pour **ceux qui utilisent Claude Code comme assistant de travail au quotidien** (marketing, opérations, conseil, recherche, indépendants), pas seulement pour coder. Pas de serveur, pas de base de données, pas de compte : bash, git, jq et Claude Code.
 
-[English version](README.md)
+[English version](README.md) (schéma de la boucle, exemple de démarrage, comparaison, tâches de nuit)
 
 ## Ce qu'il contient
 

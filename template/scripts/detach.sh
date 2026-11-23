@@ -10,6 +10,7 @@ esac
 name="$1"; shift
 [[ "$name" =~ ^[A-Za-z0-9_-]+$ ]] && [ $# -gt 0 ] || { echo "Usage: $0 <name> <command…> | --status | --stop <name>"; exit 1; }
 if [ -f "$d/$name.pid" ] && kill -0 "$(cat "$d/$name.pid")" 2>/dev/null; then echo "Already running: $name"; exit 1; fi
-setsid nohup "$@" >"$d/$name.log" 2>&1 </dev/null &
+if command -v setsid >/dev/null; then set -- setsid nohup "$@"; else set -- nohup "$@"; fi
+"$@" >"$d/$name.log" 2>&1 </dev/null &
 echo $! >"$d/$name.pid"
 echo "Started: $name (PID $!), log $d/$name.log"

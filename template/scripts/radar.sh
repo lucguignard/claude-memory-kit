@@ -9,7 +9,7 @@ work="$(mktemp -d)"; trap 'rm -rf "$work"' EXIT
 material="$work/last-working-day.md"
 
 for n in 1 2 3 4 5 6 7; do
-  day="$(date -d "-$n day" +%F)"
+  day="$(day_ago "$n")"
   : > "$material"
   for f in memory/journal/"$day"*.md; do
     [ -f "$f" ] && { echo "## Journal $f"; cat "$f"; echo; } >> "$material"
