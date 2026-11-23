@@ -1,0 +1,2 @@
+# Texts allowed despite the filter (generic, public contacts: switchboard, support), one per line.
+# Add nothing here without the user's explicit agreement.

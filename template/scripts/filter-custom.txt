@@ -1,0 +1,3 @@
+# Your own sensitive patterns (extended regex, case-insensitive), one per line. Examples:
+# \bC[0-9]{7}\b                              customer codes from your ERP
+# (margin|purchase price)[^.]{0,40}[0-9]      internal figures

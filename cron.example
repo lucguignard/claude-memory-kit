@@ -1,0 +1,4 @@
+# claude-memory-kit night jobs (crontab -e). Replace /path/to/assistant with your install folder.
+# They use the long-lived token in ~/.config/claude-memory-kit/token.env (claude setup-token).
+0 5 * * * /path/to/assistant/scripts/nightly-audit.sh >> "$HOME/.cache/claude-memory-kit-audit.log" 2>&1
+0 6 * * * /path/to/assistant/scripts/radar.sh >> "$HOME/.cache/claude-memory-kit-radar.log" 2>&1

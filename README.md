@@ -1,0 +1,86 @@
+# claude-memory-kit
+
+**A persistent, self-improving memory for Claude Code — plain Markdown files, git, and a few hooks.**
+
+Claude Code forgets everything between sessions. This kit turns a folder into Claude's long-term memory: it loads your preferences and notes at every start, writes down each correction you make, commits everything to git after every reply, blocks secrets before they are saved, and — if you want — audits yesterday's conversations every night to learn from them.
+
+No server, no database, no account: bash, git, jq and Claude Code.
+
+[Version française](README.fr.md)
+
+## What you get
+
+| Piece | What it does |
+|---|---|
+| `memory/` | Plain Markdown notes: `INDEX.md` (where to find what), `preferences.md`, `profile.md`, `projects.md`, a daily `journal/`, multi-session `workstreams/`. |
+| `CLAUDE.md` | The rules Claude follows: read the index first, write every durable correction to `preferences.md` immediately, "a mistake corrected twice becomes a rule", invent nothing. |
+| **startup** hook | Prints today's date, the index and the top of your preferences at each session start (kept under 9,000 characters so it is never truncated). |
+| **autosave** hook | Commits `memory/` to local git after every reply. Files over 5 MB are skipped. |
+| **filter** | Blocks the commit if the diff contains a password, an API key (Anthropic, OpenAI, GitHub, AWS, Google, Slack…), an IBAN, a card number, or a personal email / phone number. Add your own patterns in `filter-custom.txt`, allowed generic contacts in `filter-allow.txt`. |
+| **guard-secret** | Warns when you paste a secret into a prompt (without repeating it). |
+| **guard-injection** | Once a session has read outside content (web page, PDF, connector), any action that sends, publishes, pushes or deletes requires your confirmation. |
+| **guard-reply** | Nudges Claude once when a reply ends with "do you want me to…?" for a safe action, or hands verification back to you. |
+| **guard-cost** | Warns when you resume a very long conversation after the prompt cache has expired. |
+| **pre/post-compact** | Tells the compaction summary what to keep, then points back to the active workstream. |
+| **notify** | Optional phone alerts through [ntfy](https://ntfy.sh) when Claude waits for you or a night job fails. |
+| **nightly audit** (optional) | Re-reads yesterday's conversations, writes missing rules and facts, and lists tooling needs. |
+| **self-tooling** (optional) | Builds those tools (hooks, scripts), checks that everything still works, and rolls back otherwise. Changes to `.claude/` are only *staged*, for you to confirm. |
+| **radar** (optional) | Every morning, 5 skills, plugins or techniques that would have helped with what you actually did yesterday — verified sources only. `radar-install.sh <date> <n>` installs one. |
+
+## Install
+
+```bash
+git clone https://github.com/lucguignard/claude-memory-kit.git
+cd claude-memory-kit
+./install.sh ~/assistant        # never overwrites an existing file
+cd ~/assistant && claude
+```
+
+Claude Code asks you to trust the folder's hooks the first time: read `.claude/settings.json` (it only calls the scripts in `scripts/`), then accept. Then fill in `memory/profile.md` and the top of `memory/preferences.md`, or simply tell Claude about yourself and let it write them.
+
+Requirements: Claude Code, bash, git, jq. Linux or macOS (the night jobs use GNU `date -d`; on macOS install `coreutils` or run them on a Linux box).
+
+### Night jobs (optional)
+
+```bash
+claude setup-token     # long-lived token for unattended runs
+mkdir -p ~/.config/claude-memory-kit
+echo 'export CLAUDE_CODE_OAUTH_TOKEN=…' > ~/.config/claude-memory-kit/token.env
+chmod 600 ~/.config/claude-memory-kit/token.env
+crontab -e             # paste the lines from cron.example
+```
+
+Settings live in `kit.conf`: time zone, ntfy topic, model for the night jobs (Sonnet by default, to keep costs down).
+
+## How it learns
+
+1. You correct Claude ("shorter", "never say X").
+2. Claude writes a dated bullet in `memory/preferences.md` right away and tells you in one line.
+3. The Stop hook commits it; the next session loads it at startup.
+4. At night, the audit catches what slipped through: repeated mistakes, useless questions, facts you had to explain twice.
+
+Everything is plain text in git: you can read, edit or revert any of it.
+
+## Safety model
+
+- Nothing leaves your machine except what Claude Code itself sends, and the optional ntfy alerts (generic text, no conversation content).
+- Unattended runs use explicit `--allowedTools` lists, no MCP servers (`--strict-mcp-config`), and cannot touch `CLAUDE.md`, the autosave or the filter.
+- Claude Code protects `.claude/` from unattended edits; the kit respects that and stages changes in `staged/<date>/`. The next interactive session shows them and asks you before connecting anything.
+- The filter is a safety net, not a guarantee: keep real secrets in a password manager.
+
+## Layout
+
+```
+your-folder/
+├── CLAUDE.md
+├── kit.conf
+├── .claude/settings.json     hooks
+├── scripts/                  hooks, night jobs and their prompts
+└── memory/
+    ├── INDEX.md  preferences.md  profile.md  projects.md
+    ├── journal/  workstreams/  audit/  radar/
+```
+
+## License
+
+MIT
