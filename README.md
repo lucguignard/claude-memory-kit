@@ -1,54 +1,36 @@
-<p align="center"><img src="assets/banner.svg" alt="claude-memory-kit — an assistant that learns from you every night" width="100%"></p>
+<p align="center"><img src="assets/banner.svg" alt="claude-memory-kit — the assistant I built for myself, because I was tired of repeating myself" width="100%"></p>
 
-<p align="center">
-  <img src="https://img.shields.io/badge/license-MIT-blue" alt="MIT license">
-  <img src="https://img.shields.io/badge/Linux%20%7C%20macOS-bash-lightgrey" alt="bash, Linux and macOS">
-  <img src="https://img.shields.io/badge/no%20database-plain%20Markdown-d97757" alt="plain Markdown">
-  &nbsp;·&nbsp; <a href="README.fr.md">Version française</a>
-</p>
+<p align="center"><i>MIT license · bash, git, jq · <a href="README.fr.md">version française</a></i></p>
 
-## Stop repeating yourself to Claude.
+---
 
-You told it last week: *shorter answers*, *never sign my emails*, *the client is called X, not Y*. Today, new session, same mistakes.
+## Hi, I'm Luc
 
-**claude-memory-kit turns Claude Code into an assistant that keeps what you teach it — and gets better on its own.** Correct it once, it writes the rule down. Every night it re-reads the day like a coach reviewing a match, fixes its own notes and builds the small tools it was missing. Every morning it tells you what would have helped you yesterday.
+I'm not a developer. I work in marketing: product ranges, catalogs, social media, customer emails, that kind of stuff. I'm French, so sorry in advance for my English.
 
-No database, no account, no cloud service. Plain Markdown in a git folder you can read, edit and roll back — fenced by guards that keep your secrets out and ask before anything leaves your machine.
+A while ago I started using Claude Code as my daily assistant, for work and for personal stuff. And one thing drove me crazy: every new session, it forgot everything. My tone, my rules, my projects, the mistakes I had already corrected the day before. I was repeating myself all day.
 
-Made for **people who use Claude Code as a daily work assistant** — marketing, operations, consulting, research, freelancing — not only for coding. I built it for myself (I am not a developer) and it runs my own assistant every day.
+So I built something for myself. Well, to be honest, Claude wrote the code. I explained what I wanted, tested everything, and complained a lot when it didn't work.
 
-## Before / after
+This repo is the cleaned-up version of that setup. Nothing personal or work-related in it, just the mechanics.
 
-| Without the kit | With the kit |
-|---|---|
-| Every session starts from zero | Every session starts with your index, your rules and your projects loaded |
-| You repeat the same corrections | A correction becomes a dated rule, applied from the next reply |
-| Mistakes you didn't spot are lost | A nightly audit catches what slipped through and writes the missing rules |
-| "There must be a tool for this…" | A morning radar suggests 5 tools matched to what you actually did — one command to install |
-| A pasted API key ends up in your notes | A filter blocks the commit; a guard warns you when you paste it |
-| A web page tells Claude to "send this file" | After reading outside content, anything that sends, publishes or deletes needs your OK |
+## How I work with it
 
-## Three things it does
+I just talk to Claude, like I would with a colleague. When something annoys me, I say it once:
 
-**🧠 It remembers.** Plain Markdown notes — index, preferences, profile, projects, daily journal, long-running workstreams — loaded at every start (kept short so it is never truncated) and committed to git after every reply.
+> "Stop asking me 'do you want me to…'. If it's safe, just do it."
 
-**📈 It learns.** "A mistake corrected twice becomes a rule." Corrections are written the moment you make them; the night audit reviews yesterday's conversations; self-tooling builds the missing hooks and scripts, tests everything and rolls back on failure.
+Claude writes it down right away in a small notes file, with the date, and tells me in one line. Next session, the rule is loaded before I even type. If I have to correct the same thing twice, it becomes a permanent rule. That's the deal.
 
-**🛡️ It protects.** Secret filter on every commit, secret-paste warning, prompt-injection guard, cost guard for expensive resumes. Night jobs run with explicit tool lists, no MCP servers, and cannot touch their own rules. Changes to `.claude/` are only staged — you confirm them.
+Then the part I like the most:
 
-## A day with the kit
+- **At 5am**, while I sleep, it re-reads the conversations of the day before. A bit like a coach watching the game replay: where I got annoyed, what I had to explain twice, what it asked me for nothing. It fixes its own notes, and if a small tool was missing, it builds it, checks it, and undoes everything if something breaks.
+- **At 6am**, it looks for 5 skills, plugins or tricks that would have helped with what I *actually* did yesterday. Real sources only. If one looks good, one command installs it.
+- **When I open Claude in the morning**, all of that is already loaded. I just start working.
 
-| When | What happens |
-|---|---|
-| **05:00** | The audit re-reads yesterday's conversations: rules you had to repeat, facts you explained twice, needless questions. It writes them down and lists the tools that were missing. |
-| **Right after** | Self-tooling builds those tools, checks that everything still works, and rolls back otherwise. |
-| **06:00** | The radar picks 5 skills, plugins or techniques that would have helped with *your* yesterday — verified sources only. |
-| **You start Claude** | Date, index, your preferences, the audit summary and the radar are already loaded. You just work. |
-| **All day** | Every correction is saved in seconds; every reply is committed to git; secrets never make it in. |
+It runs on an old laptop at home that stays on all the time. The night part is optional: the rest works on any computer.
 
-Times come from `cron.example`; change them freely. The night jobs are optional — the memory, learning-on-correction and guards work on any laptop.
-
-### What a session start looks like
+This is what the start of a session looks like:
 
 ```
 Today: 2026-11-23
@@ -68,7 +50,32 @@ Summary: 1. PDF table extraction skill · 2. Calendar MCP server · …
 ```
 *(Real output of `scripts/startup.sh`; the preference, audit and radar lines are illustrative.)*
 
-## Get started in 2 minutes
+## How I built it
+
+Step by step, one worry at a time. Each piece of the kit answers a question I asked myself while using it:
+
+- *What if I paste an API key by mistake?* → a filter blocks the save if a password, a key, an IBAN or a card number slips in, and I get a warning the moment I paste one.
+- *What if a web page tells Claude to send my files somewhere?* → once it has read something from outside, it has to ask me before sending, publishing or deleting anything.
+- *What if the night jobs break my setup while I sleep?* → they run with a strict list of allowed tools, can't touch their own rules, and anything touching Claude's settings waits for my OK.
+- *Why does coming back to a long conversation after a break cost so much?* → I get a warning and a suggestion to start fresh.
+
+Everything is plain Markdown in a git folder. I can open any note, change it, or go back in time. No database, no account, no cloud service.
+
+## How it can help you
+
+If you use Claude Code for your day-to-day work, and not only for coding, I think it can save you the same frustration. Marketing, operations, consulting, research, freelancing… if you spend your day explaining things to Claude, this is for you.
+
+What you get, concretely:
+
+| | |
+|---|---|
+| **A memory** | Simple notes: an index, your preferences, your profile, your projects, a daily journal. Loaded at every start, saved after every reply. |
+| **Rules that stick** | Every correction becomes a dated rule. Twice the same mistake = permanent rule. |
+| **A nightly review** | Catches what you didn't flag, fixes the notes, builds what was missing. |
+| **A morning radar** | 5 tools matched to your real day, one command to install. |
+| **Guardrails** | Secret filter, protection against instructions hidden in web pages, cost warning. |
+
+## Try it
 
 ```bash
 git clone https://github.com/lucguignard/claude-memory-kit.git
@@ -76,44 +83,19 @@ cd claude-memory-kit && ./install.sh ~/assistant   # never overwrites an existin
 cd ~/assistant && claude
 ```
 
-Then just tell Claude about yourself and how you like to work — it fills in `memory/profile.md` and `memory/preferences.md` for you.
+Then introduce yourself to Claude, like you would to a new assistant: what you do, how you like answers, what annoys you. It fills in the notes for you.
 
-Claude Code asks you to trust the folder's hooks the first time: read `.claude/settings.json` (it only calls the scripts in `scripts/`), then accept.
+The first time, Claude Code asks you to trust the folder's hooks: read `.claude/settings.json` (it only calls the scripts in `scripts/`), then accept.
 
-Requirements: Claude Code, bash, git, jq (`brew install jq` on macOS). Tested on Linux; the scripts avoid GNU-only options so they also run on macOS (bash 3.2) — macOS reports welcome. The night jobs need a machine that is on at night (cron on Linux; on a Mac, cron works but the machine must be awake).
+You need Claude Code, bash, git and jq (`brew install jq` on a Mac).
 
-## How it compares
+## Being honest about the limits
 
-| | Typical memory plugin | claude-memory-kit |
-|---|---|---|
-| Storage | Database or vector store | Plain Markdown in git: readable, editable, revertable |
-| Learning | Recalls what was said | Turns corrections into rules; nightly audit catches what slipped |
-| Tooling | — | Builds missing hooks/scripts at night, checks them, rolls back on failure |
-| Discovery | — | Morning radar: tools matched to what you actually did |
-| Safety | — | Secret filter on every commit, prompt-injection guard, cost guard, `.claude/` changes staged for your OK |
-
-## FAQ
-
-**Is it only for developers?**
-No. It was built by and for someone who uses Claude Code for writing, planning and running projects. You talk to Claude; it maintains the files.
-
-**Do I need a server?**
-No. Everything except the night jobs works on a laptop. The night jobs need a machine that is on (and awake) at night.
-
-**What do the night jobs cost?**
-They use your Claude Code subscription or API like any session, with Sonnet by default to keep usage down (change it in `kit.conf`). Skip them entirely if you prefer.
-
-**Where does my data go?**
-Nowhere new: it stays in a local git folder. Only what Claude Code itself sends leaves your machine, plus optional ntfy phone alerts with generic text (no conversation content).
-
-**Can it break my setup at night?**
-Night jobs can't edit `CLAUDE.md`, the autosave or the filter, and Claude Code's own `.claude/` protection is respected: changes there wait in `staged/` for your confirmation. Anything self-tooling builds is checked and rolled back on failure.
-
-**Does it work on macOS?**
-The scripts avoid GNU-only options and target bash 3.2, but my daily use is on Linux. macOS reports are welcome.
-
-**How is it different from a memory MCP server?**
-Those store and recall. This one closes the loop: corrections become rules, the audit finds what you didn't flag, and the radar brings new tools — all in files you can read.
+- I've only used it on Linux. The scripts are written to work on a Mac too, but I haven't been able to test it. If you try, tell me.
+- The night jobs need a computer that is on (and awake) at night, and they use your Claude subscription like a normal session. They run on Sonnet by default to keep it reasonable, and you can skip them completely.
+- Your notes stay in a local folder. Only what Claude Code already sends leaves your machine, plus optional phone alerts (through [ntfy](https://ntfy.sh)) with generic text, never the conversation.
+- The secret filter is a safety net, not a guarantee. Keep your real passwords in a password manager.
+- It's my first open source project. Be kind, but be honest.
 
 ## Under the hood
 
@@ -190,11 +172,14 @@ your-folder/
 
 </details>
 
-## Contributing
 
-Issues and pull requests are welcome — especially macOS reports, new filter patterns and ideas for the audit. See [CHANGELOG.md](CHANGELOG.md).
+## Talk to me
 
-If the kit saves you from repeating yourself, a ⭐ helps others find it.
+Any feedback is welcome, good or bad. Open an issue if something doesn't work, if you tried it on a Mac, or if you have an idea for the nightly review. Changes are listed in [CHANGELOG.md](CHANGELOG.md).
+
+If it saves you from repeating yourself, a star helps other people find it. Thanks for reading.
+
+— Luc
 
 ## License
 
