@@ -28,7 +28,7 @@ Then the part I like the most:
 - **At 6am**, it looks for 5 skills, plugins or tricks that would have helped with what I *actually* did yesterday. Real sources only. If one looks good, one command installs it.
 - **When I open Claude in the morning**, all of that is already loaded. I just start working.
 
-It runs on an old laptop at home that stays on all the time. The night part is optional: the rest works on any computer.
+It runs on an old Thinkpad at home that stays on all the time. The night part is optional: the rest works on any computer.
 
 This is what the start of a session looks like:
 
