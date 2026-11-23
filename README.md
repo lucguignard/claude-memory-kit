@@ -1,4 +1,4 @@
-<p align="center"><img src="assets/banner.svg" alt="claude-memory-kit — the assistant I built for myself, because I was tired of repeating myself" width="100%"></p>
+<p align="center"><img src="assets/notebook.svg" alt="claude-memory-kit — the assistant I built for myself, because I was tired of repeating myself" width="100%"></p>
 
 <p align="center"><i>MIT license · bash, git, jq · <a href="README.fr.md">version française</a></i></p>
 
@@ -67,23 +67,21 @@ If you use Claude Code for your day-to-day work, and not only for coding, I thin
 
 What you get, concretely:
 
-| | |
-|---|---|
-| **A memory** | Simple notes: an index, your preferences, your profile, your projects, a daily journal. Loaded at every start, saved after every reply. |
-| **Rules that stick** | Every correction becomes a dated rule. Twice the same mistake = permanent rule. |
-| **A nightly review** | Catches what you didn't flag, fixes the notes, builds what was missing. |
-| **A morning radar** | 5 tools matched to your real day, one command to install. |
-| **Guardrails** | Secret filter, protection against instructions hidden in web pages, cost warning. |
+- **A memory** — Simple notes: an index, your preferences, your profile, your projects, a daily journal. Loaded at every start, saved after every reply.
+- **Rules that stick** — Every correction becomes a dated rule. Twice the same mistake = permanent rule.
+- **A nightly review** — Catches what you didn't flag, fixes the notes, builds what was missing.
+- **A morning radar** — 5 tools matched to your real day, one command to install.
+- **Guardrails** — Secret filter, protection against instructions hidden in web pages, cost warning.
 
 ## Try it
 
 ```bash
 git clone https://github.com/lucguignard/claude-memory-kit.git
-cd claude-memory-kit && ./install.sh ~/assistant   # never overwrites an existing file
+cd claude-memory-kit && ./install.sh ~/assistant
 cd ~/assistant && claude
 ```
 
-Then introduce yourself to Claude, like you would to a new assistant: what you do, how you like answers, what annoys you. It fills in the notes for you.
+(The installer never overwrites an existing file.) Then introduce yourself to Claude, like you would to a new assistant: what you do, how you like answers, what annoys you. It fills in the notes for you.
 
 The first time, Claude Code asks you to trust the folder's hooks: read `.claude/settings.json` (it only calls the scripts in `scripts/`), then accept.
 

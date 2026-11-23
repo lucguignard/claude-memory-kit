@@ -1,4 +1,4 @@
-<p align="center"><img src="assets/banner.svg" alt="claude-memory-kit — l'assistant que je me suis fait, parce que j'en avais marre de me répéter" width="100%"></p>
+<p align="center"><img src="assets/notebook.svg" alt="claude-memory-kit — l'assistant que je me suis fait, parce que j'en avais marre de me répéter" width="100%"></p>
 
 <p align="center"><i>Licence MIT · bash, git, jq · <a href="README.md">English version</a> (détails techniques complets)</i></p>
 
@@ -45,23 +45,21 @@ Tout est en Markdown dans un dossier git. Je peux ouvrir n'importe quelle note, 
 
 Si tu utilises Claude Code pour ton travail de tous les jours, et pas seulement pour coder, je pense que ça peut t'éviter la même frustration. Marketing, opérations, conseil, recherche, indépendants… si tu passes tes journées à expliquer des choses à Claude, c'est pour toi.
 
-| | |
-|---|---|
-| **Une mémoire** | Des notes simples : un index, tes préférences, ton profil, tes projets, un journal. Chargées à chaque démarrage, enregistrées après chaque réponse. |
-| **Des règles qui tiennent** | Chaque correction devient une règle datée. Deux fois la même erreur = règle permanente. |
-| **Une relecture de nuit** | Rattrape ce que tu n'as pas signalé, corrige les notes, construit ce qui manquait. |
-| **Un radar du matin** | 5 outils liés à ta vraie journée, une commande pour installer. |
-| **Des garde-fous** | Filtre à secrets, protection contre les consignes cachées dans les pages web, alerte de coût. |
+- **Une mémoire** — Des notes simples : un index, tes préférences, ton profil, tes projets, un journal. Chargées à chaque démarrage, enregistrées après chaque réponse.
+- **Des règles qui tiennent** — Chaque correction devient une règle datée. Deux fois la même erreur = règle permanente.
+- **Une relecture de nuit** — Rattrape ce que tu n'as pas signalé, corrige les notes, construit ce qui manquait.
+- **Un radar du matin** — 5 outils liés à ta vraie journée, une commande pour installer.
+- **Des garde-fous** — Filtre à secrets, protection contre les consignes cachées dans les pages web, alerte de coût.
 
 ## L'essayer
 
 ```bash
 git clone https://github.com/lucguignard/claude-memory-kit.git
-cd claude-memory-kit && ./install.sh ~/assistant   # n'écrase jamais un fichier existant
+cd claude-memory-kit && ./install.sh ~/assistant
 cd ~/assistant && claude
 ```
 
-Ensuite, présente-toi à Claude comme à un nouvel assistant : ce que tu fais, comment tu aimes les réponses, ce qui t'agace. Il remplit les notes pour toi.
+(L'installation n'écrase jamais un fichier existant.) Ensuite, présente-toi à Claude comme à un nouvel assistant : ce que tu fais, comment tu aimes les réponses, ce qui t'agace. Il remplit les notes pour toi.
 
 La première fois, Claude Code demande d'approuver les hooks du dossier : lis `.claude/settings.json` (il n'appelle que les scripts de `scripts/`), puis accepte.
 
