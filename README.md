@@ -116,6 +116,8 @@ You need Claude Code, bash, git and jq (`brew install jq` on a Mac).
 | **nightly audit** (optional) | Re-reads yesterday's conversations, writes missing rules and facts, and lists tooling needs. |
 | **self-tooling** (optional) | Builds those tools (hooks, scripts), checks that everything still works, and rolls back otherwise. Changes to `.claude/` are only *staged*, for you to confirm. |
 | **radar** (optional) | Every morning, 5 skills, plugins or techniques that would have helped with what you actually did yesterday — verified sources only. `radar-install.sh <date> <n>` installs one. |
+| **skills & agents** | `project-lead` (takes over any "make me…" request), `interview-me`, `call-the-sages`, `test-my-idea`, `resume`, `check-render`, `print-pdf`, `presentation-method`, image helpers; agents `reader`, `writer`, `checker`. See [docs/tools.md](docs/tools.md). |
+| **more guards** | `guard-artifact` (never publish an internal note), `guard-pptx` (automatic deck check), `ssh-hosts`, `session-trace`, plus `booklet.py`, `pptx-check.py`, `public-link.sh`. |
 
 </details>
 
@@ -162,6 +164,7 @@ your-folder/
 ├── CLAUDE.md
 ├── kit.conf
 ├── .claude/settings.json     hooks
+├── .claude/skills/ agents/    skills and helper agents
 ├── scripts/                  hooks, night jobs and their prompts
 └── memory/
     ├── INDEX.md  preferences.md  profile.md  projects.md

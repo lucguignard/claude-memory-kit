@@ -13,7 +13,7 @@ mkdir -p "$target"; target="$(cd "$target" && pwd)"
   if [ -e "$target/$f" ]; then echo "Kept existing: ${f#./}"
   else mkdir -p "$target/$(dirname "$f")"; cp "$src/$f" "$target/$f"; fi
 done
-chmod +x "$target"/scripts/*.sh
+chmod +x "$target"/scripts/*.sh "$target"/scripts/*.py 2>/dev/null
 
 cd "$target"
 [ -d .git ] || git init -q

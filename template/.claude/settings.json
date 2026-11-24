@@ -20,6 +20,16 @@
             "timeout": 10
           }
         ]
+      },
+      {
+        "matcher": "startup|resume",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR\"/scripts/ssh-hosts.sh",
+            "timeout": 5
+          }
+        ]
       }
     ],
     "UserPromptSubmit": [
@@ -47,6 +57,16 @@
             "timeout": 5
           }
         ]
+      },
+      {
+        "matcher": "Artifact",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR\"/scripts/guard-artifact.sh",
+            "timeout": 5
+          }
+        ]
       }
     ],
     "PostToolUse": [
@@ -56,6 +76,16 @@
             "type": "command",
             "command": "\"$CLAUDE_PROJECT_DIR\"/scripts/guard-injection.sh",
             "timeout": 5
+          }
+        ]
+      },
+      {
+        "matcher": "Edit|Write|Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR\"/scripts/guard-pptx.sh",
+            "timeout": 60
           }
         ]
       }
@@ -99,6 +129,17 @@
             "type": "command",
             "command": "\"$CLAUDE_PROJECT_DIR\"/scripts/notify.sh",
             "timeout": 15
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR\"/scripts/session-trace.sh",
+            "timeout": 2
           }
         ]
       }

@@ -49,6 +49,7 @@ Si tu utilises Claude Code pour ton travail de tous les jours, et pas seulement 
 - **Des règles qui tiennent** — Chaque correction devient une règle datée. Deux fois la même erreur = règle permanente.
 - **Une relecture de nuit** — Rattrape ce que tu n'as pas signalé, corrige les notes, construit ce qui manquait.
 - **Un radar du matin** — 5 outils liés à ta vraie journée, une commande pour installer.
+- **Des outils** — Un chef de projet qui prend en main toute création, des skills (interview, conseil des sages, panel de clients fictifs, PDF imprimables, présentations, visuels) et des agents d'appoint. Liste complète : [docs/tools.md](docs/tools.md).
 - **Des garde-fous** — Filtre à secrets, protection contre les consignes cachées dans les pages web, alerte de coût.
 
 ## L'essayer

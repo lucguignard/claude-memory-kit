@@ -10,6 +10,7 @@ If it says tools are staged in `staged/`, handle that first (read its README.md,
 - Start from the "Where to find what" table of `memory/INDEX.md` and open only the note you need. For a detail, search by keyword (grep).
 - A task that spans several sessions goes in `memory/workstreams/` (rules in workstreams/README.md).
 - Follow the language, tone and form of address noted in preferences.md.
+- **Any request to create a deliverable goes through the `project-lead` skill first**; it picks the other skills (print-pdf, presentation-method, image helpers…) and the agents `reader`, `writer`, `checker`. A vague request: `interview-me`. "Where were we?": `resume`. List in docs/tools.md of the kit.
 
 ## Learn from the user (top priority)
 - As soon as the user corrects a reply ("shorter", "not this tone", "redo without…") or states a durable preference, write it **immediately** in `memory/preferences.md`: a short bullet with the instruction, why, and the date (YYYY-MM-DD). Update an existing bullet rather than add one. Say it in one line ("Noted in preferences.md: …").
